@@ -58,6 +58,8 @@ vaultsdataRouter.get("/api/data", async (req, res) => {
               v.total_assets_token0,
               v.total_assets_token1,
               v.algo_shares,
+              v.token0_address,
+              v.token1_address,
               t0.name as token0_name,
               t0.symbol as token0_symbol,
               t0.decimal as token0_decimal,
