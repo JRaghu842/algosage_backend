@@ -28,7 +28,9 @@ corsRouter.get("/proxy", async (req, res) => {
     res.json(data);
   } catch (error) {
     console.error("Error:", error);
-    res.status(500).send({ error: "Failed to fetch data.", fullerrror: error });
+    res
+      .status(500)
+      .send({ error: "Failed to fetch data.", fullerrror: error.message });
   }
 });
 
