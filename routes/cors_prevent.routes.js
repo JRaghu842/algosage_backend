@@ -4,7 +4,13 @@ require("dotenv").config();
 
 corsRouter.get("/proxy", async (req, res) => {
   try {
-    const fetch = (await import("node-fetch")).default; // Dynamic import of node-fetch
+    if (!req.query.url) {
+      return res
+        .status(400)
+        .send({ error: "URL query parameter is required." });
+    }
+
+    const fetch = (await import("node-fetch")).default;
 
     const response = await fetch(req.query.url, {
       headers: {
@@ -13,7 +19,8 @@ corsRouter.get("/proxy", async (req, res) => {
     });
 
     if (!response.ok) {
-      // Check if response status is not OK (not 2xx)
+      // Log the detailed response for debugging
+      console.error("Failed API Response:", await response.text());
       throw new Error(`HTTP Error ${response.status}: ${response.statusText}`);
     }
 
